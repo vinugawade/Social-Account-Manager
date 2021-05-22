@@ -7,7 +7,6 @@ from subprocess import check_call
 import binascii
 import os
 
-
 def resource_path(relative):
     return os.path.join(
         os.environ.get(
@@ -16,7 +15,6 @@ def resource_path(relative):
         ),
         relative
     )
-
 
 root = tk.Tk()
 root.iconbitmap(resource_path('SAM.ico'))
@@ -52,10 +50,9 @@ def addRow():
         e1.delete(0,'end')
         e2.delete(0,'end')
 
-
-def viewPass():       
-    if(t.curselection()):   
-        acc_username = t.get(t.curselection())  
+def viewPass():
+    if(t.curselection()):
+        acc_username = t.get(t.curselection())
         input_pass = simpledialog.askstring(title="Master Passcode", prompt="Verify Master Passcode:")
         if(input_pass=='3020'):
             for row in cur.execute('SELECT acc_password FROM accounts WHERE acc_username=?', (bin(int(binascii.hexlify((acc_username.decode('utf-8')).encode('utf-8')), 16)),)):
@@ -70,10 +67,9 @@ def listUpdate():
     for row in cur.execute('SELECT acc_username FROM accounts'):
         t.insert('end',binascii.unhexlify('%x' % int(row[0],2)))
 
-
 def delOne():
     try:
-        if(t.curselection()): 
+        if(t.curselection()):
             mb = messagebox.askyesno('Delete','Are you sure?')
             if mb==True:
                 acc_username = t.get(t.curselection())
@@ -107,7 +103,6 @@ def retrieveDB():
         task.append(binascii.unhexlify('%x' % int(row[0],2)))
     conn.commit()
 
-
     #------------------------------- Functions--------------------------------
 
 l2 = ttk.Label(root, background="#856ff8",foreground="black",text='Enter Username: ')
@@ -139,7 +134,6 @@ b5.place(x=50, y =140)
 b2.place(x=50, y=170)
 b3.place(x=50, y=200)
 b4.place(x=50, y =230)
-
 
 t.place(x=220, y = 45)
 root.mainloop()
