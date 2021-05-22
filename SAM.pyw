@@ -53,7 +53,7 @@ def addRow():
 def viewPass():
     if(t.curselection()):
         acc_username = t.get(t.curselection())
-        input_pass = simpledialog.askstring(title="Master Passcode", prompt="Verify Master Passcode:")
+        input_pass = simpledialog.askstring(title="Master Passcode",show="*", prompt="Verify Master Passcode:")
         if(input_pass=='3020'):
             for row in cur.execute('SELECT acc_password FROM accounts WHERE acc_username=?', (bin(int(binascii.hexlify((acc_username.decode('utf-8')).encode('utf-8')), 16)),)):
                 cmd='echo '+binascii.unhexlify('%x' % int(row[0],2)).decode('utf-8').strip()+'|clip'
